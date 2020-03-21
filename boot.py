@@ -8,7 +8,6 @@ wifiConnection = network.WLAN(network.STA_IF)
 
 def discoLED(counter):
 	global LED
-	
 	for x in range(1,counter):
 		LED.value(0)
 		time.sleep(0.2)
@@ -20,11 +19,12 @@ def neton():
 	global wifiConnection
 	global LED
 	discoLED(3)
-	
 	if not wifiConnection.isconnected():
 		print('connecting to network AP...')
 		wifiConnection.active(True)
 		wifiConnection.connect('###AP NAME###', '###PASSWORD###)
+		while not wifiConnection.isconnected():
+			pass
 	else:
 		print('Already Connected')
 	print('network config:', wifiConnection.ifconfig())
@@ -34,7 +34,6 @@ def netoff():
 	global wifiConnection
 	global LED
 	discoLED(3)
-	
 	if wifiConnection.isconnected():
 		print('Disconneting from AP...')
 		wifiConnection.active(False)
